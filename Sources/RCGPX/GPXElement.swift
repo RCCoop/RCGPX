@@ -12,7 +12,7 @@ public enum GPXError: Error {
     case missingRequiredElement(String)
 }
 
-public protocol GPXElement {
+protocol GPXElement {
     /// The XML element name for this type of GPX Element, such as
     /// **trk**, **trkseg**, **wpt**, etc.
     static var xmlTag: String { get }

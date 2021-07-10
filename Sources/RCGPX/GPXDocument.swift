@@ -8,18 +8,23 @@
 import Foundation
 import AEXML
 
+/// The root of a GPX file representation. The basics of this are an optional
+/// `creator` string, and arrays of waypoints and tracks.
 public struct GPXDocument {
+    /// An optional name for who or what created this GPX file
     var creator: String?
+    /// An array of `GPXWaypoint` contained in this GPX file
     var waypoints: [GPXWaypoint]
+    /// An array of `GPXTrack` contained in this GPX file
     var tracks: [GPXTrack]
 }
 
 extension GPXDocument: GPXElement {
-    public static var xmlTag: String {
+    static var xmlTag: String {
         "gpx"
     }
     
-    public init(xml: AEXMLElement) throws {
+    init(xml: AEXMLElement) throws {
         self.creator = xml.attributes["creator"]
         let waypointElements = xml.children.filter({ $0.name == GPXWaypoint.xmlTag })
         self.waypoints = try waypointElements.map({ try GPXWaypoint(xml: $0) })
@@ -27,7 +32,7 @@ extension GPXDocument: GPXElement {
         self.tracks = try trackElements.map({ try GPXTrack(xml: $0) })
     }
     
-    public var xmlElement: AEXMLElement {
+    var xmlElement: AEXMLElement {
         let element = AEXMLElement(name: Self.xmlTag)
         element.attributes["creator"] = creator
         element.addChildren(waypoints.map(\.xmlElement))

@@ -8,21 +8,27 @@
 import Foundation
 import AEXML
 
+/// A representation of a point on the map, with name and optional descriptors.
 public struct GPXWaypoint {
     public var latitude: Double
     public var longitude: Double
+    /// Elevation, in meters, of the waypoint, if known.
     public var elevation: Double?
+    /// A unique name for the waypoint to be displayed in a list of GPX elements.
     public var name: String
+    /// An optional, user-created detail description of the waypoint.
     public var gpxDescription: String?
+    /// A code for the type of marker shown on the map for this waypoint.
+    /// Currently, no specific marker names are set in this library.
     public var symbol: String?
 }
 
 extension GPXWaypoint: GPXElement {
-    public static var xmlTag: String {
+    static var xmlTag: String {
         "wpt"
     }
     
-    public init(xml: AEXMLElement) throws {
+    init(xml: AEXMLElement) throws {
         //longitude
         guard let longitudeString = xml.attributes["lon"],
               let longitudeDouble = Double(longitudeString)
@@ -56,7 +62,7 @@ extension GPXWaypoint: GPXElement {
         self.symbol = xml["sym"].value
     }
     
-    public var xmlElement: AEXMLElement {
+    var xmlElement: AEXMLElement {
         let attributes = [
             "lat": "\(latitude)",
             "lon": "\(longitude)"
