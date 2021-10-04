@@ -51,7 +51,7 @@ let gpxString = try? String(contentsOf: fileUrl, encoding: .utf8)
 
 let documentFromData = try? GPXDocument(data: fileData)
 let documentFromFileUrl = try? GPXDocument(url: fileUrl)
-let documentFromString = try? GPXDocument(string: kmlString)
+let documentFromString = try? GPXDocument(string: gpxString)
 ```
 
 ---
