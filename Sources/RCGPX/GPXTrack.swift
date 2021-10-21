@@ -17,6 +17,14 @@ public struct GPXTrack {
     public var gpxDescription: String?
     /// An ordered array of `GPXTrackSegment` that make up the overall track.
     public var segments: [GPXTrackSegment]
+    
+    public init(name: String,
+                description: String?,
+                segments: [GPXTrackSegment]) {
+        self.name = name
+        self.gpxDescription = description
+        self.segments = segments
+    }
 }
 
 extension GPXTrack: GPXElement {
@@ -52,6 +60,10 @@ extension GPXTrack: GPXElement {
 public struct GPXTrackSegment {
     /// An array of TrackPoints in directional order that make up this segment.
     public var trackPoints: [GPXTrackPoint]
+    
+    public init(points: [GPXTrackPoint]) {
+        self.trackPoints = points
+    }
 }
 
 extension GPXTrackSegment: GPXElement {
@@ -83,6 +95,16 @@ public struct GPXTrackPoint {
     public var time: Date?
     
     private static var dateFormatter: ISO8601DateFormatter = ISO8601DateFormatter()
+    
+    public init(latitude: Double,
+                longitude: Double,
+                elevation: Double? = nil,
+                time: Date? = nil) {
+        self.latitude = latitude
+        self.longitude = longitude
+        self.elevation = elevation
+        self.time = time
+    }
 }
 
 extension GPXTrackPoint: GPXElement {

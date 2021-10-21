@@ -21,6 +21,20 @@ public struct GPXWaypoint {
     /// A code for the type of marker shown on the map for this waypoint.
     /// Currently, no specific marker names are set in this library.
     public var symbol: String?
+    
+    public init(name: String,
+                latitude: Double,
+                longitude: Double,
+                elevation: Double? = nil,
+                description: String? = nil,
+                symbol: String? = nil) {
+        self.latitude = latitude
+        self.longitude = longitude
+        self.elevation = elevation
+        self.name = name
+        self.gpxDescription = description
+        self.symbol = symbol
+    }
 }
 
 extension GPXWaypoint: GPXElement {
