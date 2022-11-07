@@ -1,6 +1,6 @@
 # RCGPX
 
-A library for reading & writing GPX tracks and waypoints in Swift.
+A simple library for reading & writing GPX tracks and waypoints in Swift, specifically designed for simplicity and ease of use.
 
 ---
 
@@ -22,8 +22,8 @@ A library for reading & writing GPX tracks and waypoints in Swift.
 # GPX Types
 
 - GPXTrack
-    - GPXTrackSegment
-        - GPXTrackPoint
+    - .Segment
+    - .Point
 - GPXWaypoint
 
 # GPXDocument
@@ -49,9 +49,9 @@ let fileUrl = ...
 let fileData = try Data(contentsOf: fileUrl)
 let gpxString = try? String(contentsOf: fileUrl, encoding: .utf8)
 
-let documentFromData = try? GPXDocument(data: fileData)
-let documentFromFileUrl = try? GPXDocument(url: fileUrl)
-let documentFromString = try? GPXDocument(string: gpxString)
+let documentFromData = try? GPXDocument(fileData)
+let documentFromFileUrl = try? GPXDocument(fileUrl)
+let documentFromString = try? GPXDocument(gpxString)
 ```
 
 ---

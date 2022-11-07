@@ -58,7 +58,7 @@
             }
             do {
                 let data = try Data(contentsOf: fileUrl)
-                let document = try GPXDocument(data: data)
+                let document = try GPXDocument(data)
                 return document
             } catch {
                 XCTFail("GPX Reader Error: \(error.localizedDescription)")
