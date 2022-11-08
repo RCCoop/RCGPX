@@ -38,6 +38,16 @@ public struct GPXTrack {
     }
 }
 
+// MARK: GPXTrack : Codable
+
+extension GPXTrack : Codable {
+    enum CodingKeys: String, CodingKey {
+        case name
+        case gpxDescription = "desc"
+        case segments = "trkseg"
+    }
+}
+
 // MARK: - TrackSegment
 
 public extension GPXTrack {
@@ -50,6 +60,14 @@ public extension GPXTrack {
         public init(points: [Point]) {
             trackPoints = points
         }
+    }
+}
+
+// MARK: GPXTrack.Segment : Codable
+
+extension GPXTrack.Segment : Codable {
+    enum CodingKeys: String, CodingKey {
+        case trackPoints = "trkpt"
     }
 }
 
@@ -83,5 +101,16 @@ public extension GPXTrack {
             self.elevation = elevation
             self.time = time
         }
+    }
+    
+}
+
+// MARK: GPXTrack.Point : Codable
+extension GPXTrack.Point : Codable {
+    enum CodingKeys: String, CodingKey {
+        case latitude = "lat"
+        case longitude = "lon"
+        case elevation = "ele"
+        case time
     }
 }

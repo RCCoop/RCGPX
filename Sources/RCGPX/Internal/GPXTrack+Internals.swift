@@ -7,6 +7,7 @@
 
 import AEXML
 import Foundation
+import XMLCoder
 
 // MARK: GPXTrack: GPXElement
 
@@ -119,4 +120,26 @@ extension GPXTrack.Point: GPXElement {
 
         return element
     }
+}
+
+extension GPXTrack.Point: DynamicNodeEncoding, DynamicNodeDecoding {
+    
+    public static func nodeDecoding(for key: CodingKey) -> XMLDecoder.NodeDecoding {
+        switch key {
+        case CodingKeys.latitude, CodingKeys.longitude:
+            return .attribute
+        default:
+            return .element
+        }
+    }
+    
+    public static func nodeEncoding(for key: CodingKey) -> XMLEncoder.NodeEncoding {
+        switch key {
+        case CodingKeys.latitude, CodingKeys.longitude:
+            return .attribute
+        default:
+            return .element
+        }
+    }
+    
 }

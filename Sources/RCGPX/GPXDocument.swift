@@ -7,6 +7,7 @@
 
 import AEXML
 import Foundation
+import XMLCoder
 
 /// The root of a GPX file representation. The basics of this are an optional
 /// `creator` string, and arrays of waypoints and tracks.
@@ -48,6 +49,13 @@ public extension GPXDocument {
 // MARK: - Initializers
 
 public extension GPXDocument {
+    
+    init(xmlCoding data: Data) throws {
+        let xmlDecoder = XMLDecoder()
+        xmlDecoder.dateDecodingStrategy = .iso8601
+        self = try xmlDecoder.decode(GPXDocument.self, from: data)
+    }
+    
     init(_ data: Data) throws {
         let xmlDoc = try AEXMLDocument(xml: data)
         guard let documentElement = xmlDoc.firstDescendant(where: { $0.name == Self.xmlTag }) else {
@@ -69,5 +77,15 @@ public extension GPXDocument {
     init(_ url: URL) throws {
         let data = try Data(contentsOf: url)
         try self.init(data)
+    }
+}
+
+// MARK: - Codable
+
+extension GPXDocument : Codable {
+    enum CodingKeys: String, CodingKey {
+        case creator
+        case waypoints = "wpt"
+        case tracks = "trk"
     }
 }

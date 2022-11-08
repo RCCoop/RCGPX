@@ -7,6 +7,7 @@
 
 import Foundation
 import AEXML
+import XMLCoder
 
 // MARK: - GPXElement
 
@@ -30,4 +31,26 @@ extension GPXDocument: GPXElement {
         element.addChildren(tracks.map(\.xmlElement))
         return element
     }
+}
+
+extension GPXDocument: DynamicNodeDecoding, DynamicNodeEncoding {
+    
+    public static func nodeDecoding(for key: CodingKey) -> XMLDecoder.NodeDecoding {
+        switch key {
+        case CodingKeys.creator:
+            return .attribute
+        default:
+            return .element
+        }
+    }
+    
+    public static func nodeEncoding(for key: CodingKey) -> XMLEncoder.NodeEncoding {
+        switch key {
+        case CodingKeys.creator:
+            return .attribute
+        default:
+            return .element
+        }
+    }
+    
 }

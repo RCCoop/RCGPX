@@ -7,6 +7,7 @@
 
 import AEXML
 import Foundation
+import XMLCoder
 
 // MARK: GPXWaypoint: GPXElement
 
@@ -75,6 +76,28 @@ extension GPXWaypoint: GPXElement {
         }
         
         return element
+    }
+    
+}
+
+extension GPXWaypoint: DynamicNodeDecoding, DynamicNodeEncoding {
+    
+    public static func nodeEncoding(for key: CodingKey) -> XMLEncoder.NodeEncoding {
+        switch key {
+        case CodingKeys.latitude, CodingKeys.longitude:
+            return .attribute
+        default:
+            return .element
+        }
+    }
+    
+    public static func nodeDecoding(for key: CodingKey) -> XMLDecoder.NodeDecoding {
+        switch key {
+        case CodingKeys.latitude, CodingKeys.longitude:
+            return .attribute
+        default:
+            return .element
+        }
     }
     
 }

@@ -17,14 +17,15 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/tadija/AEXML.git", from:"4.6.0"),
+        .package(url: "https://github.com/MaxDesiatov/XMLCoder.git", from: "0.14.0")
     ],
     targets: [
         .target(
             name: "RCGPX",
-            dependencies: ["AEXML"]),
+            dependencies: ["AEXML", "XMLCoder"]),
         .testTarget(
             name: "RCGPXTests",
-            dependencies: ["RCGPX", "AEXML"],
+            dependencies: ["RCGPX", "AEXML", "XMLCoder"],
             resources: [.process("GPSVisSample.gpx")]
         ),
     ]

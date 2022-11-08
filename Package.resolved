@@ -9,6 +9,15 @@
           "revision": "502c4d43a6cc9c395d19111e09dc62ad834977b5",
           "version": "4.6.0"
         }
+      },
+      {
+        "package": "XMLCoder",
+        "repositoryURL": "https://github.com/MaxDesiatov/XMLCoder.git",
+        "state": {
+          "branch": null,
+          "revision": "ca932442d7481700f5434a7b138c47dd42d9902b",
+          "version": "0.14.0"
+        }
       }
     ]
   },

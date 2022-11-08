@@ -38,3 +38,16 @@ public struct GPXWaypoint {
         self.symbol = symbol
     }
 }
+
+// MARK: GPXWaypoint : Codable
+
+extension GPXWaypoint : Codable {
+    enum CodingKeys: String, CodingKey {
+        case latitude = "lat"
+        case longitude = "lon"
+        case elevation = "ele"
+        case name
+        case gpxDescription = "desc"
+        case symbol = "sym"
+    }
+}
