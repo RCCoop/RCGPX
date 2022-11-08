@@ -24,15 +24,17 @@ extension GPXTrack: GPXElement {
         gpxDescription = xml["desc"].value
 
         segments = try xml
-            .all(withValue: Segment.xmlTag)?
+            .children
+            .filter { $0.name == Segment.xmlTag }
             .map { try Segment(xml: $0) }
-            ?? []
     }
 
     var xmlElement: AEXMLElement {
         let element = AEXMLElement(name: Self.xmlTag)
         element.addChild(name: "name", value: name)
-        element.addChild(name: "desc", value: gpxDescription)
+        if let desc = gpxDescription {
+            element.addChild(name: "desc", value: desc)
+        }
         element.addChildren(segments.map(\.xmlElement))
         return element
     }
@@ -46,7 +48,7 @@ extension GPXTrack.Segment: GPXElement {
     }
 
     init(xml: AEXMLElement) throws {
-        let pointChildren = xml.all(withValue: GPXTrack.Point.xmlTag) ?? []
+        let pointChildren = xml.children.filter { $0.name == GPXTrack.Point.xmlTag }
         trackPoints = try pointChildren.map { try GPXTrack.Point(xml: $0) }
     }
 

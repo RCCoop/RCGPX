@@ -36,16 +36,37 @@
                 XCTAssertEqual(gpxWpt.elevation ?? 0.0, knownTraits.elev, accuracy: 0.0001)
             }
             
-            //Tracks
+            //Tracks (number of segments)
             let knownTracks: [String : Int] = [
                 "Barrett Spur 1" : 2,
                 "Barrett Spur 2" : 3
+            ]
+            let trackPointCounts: [String : Int] = [
+                "Barrett Spur 1" : 99,
+                "Barrett Spur 2" : 98
             ]
             let trackNamesKnown = Set(knownTracks.keys)
             let trackNamesFound = Set(document.tracks.map(\.name))
             XCTAssertEqual(trackNamesKnown, trackNamesFound)
             
+            // Segments
+            for foundTrack in document.tracks {
+                XCTAssertEqual(knownTracks[foundTrack.name], foundTrack.segments.count)
+                XCTAssertEqual(trackPointCounts[foundTrack.name], foundTrack.allTrackPoints().count)
+            }
+            
         }
+        
+        func testGpxWriting() throws {
+            guard let document = getTestDocument(name: "GPSVisSample") else {
+                XCTFail("Oh no! Can't open GPSVisSample file")
+                return
+            }
+
+            let gpxString = document.gpxString()
+            print(gpxString)
+        }
+        
     }
 
     //MARK: Helper Functions
