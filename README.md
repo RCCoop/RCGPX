@@ -1,30 +1,27 @@
 # RCGPX
 
+![GitHub](https://img.shields.io/github/license/RCCoop/RCGPX)
+[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2FRCCoop%2FRCGPX%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/RCCoop/RCGPX)
+[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2FRCCoop%2FRCGPX%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/RCCoop/RCGPX)
+
 A simple library for reading & writing GPX tracks and waypoints in Swift, specifically designed for simplicity and ease of use.
 
----
-
-## Dependencies
-
-- [AEXML](https://github.com/tadija/AEXML) for reading and writing XML files
-
----
 
 # Index
 
-- [GPX Types](#gpx-types)
+- [Installation](#installation)
 - [GPXDocument](#gpxdocument)
+  - [GPX Types](#gpx-types)
 - [Reading GPX Files](#reading-gpx-files)
 - [Writing GPX Files](#writing-gpx-files)
+- [Dependencies](#dependencies)
 
----
+# Installation
 
-# GPX Types
-
-- GPXTrack
-    - .Segment
-    - .Point
-- GPXWaypoint
+Swift Package Manager:
+```
+.package(url: "https://github.com/RCCoop/RCGPX.git", .upToNextMajor(from: "1.0.0"))
+```
 
 # GPXDocument
 
@@ -40,7 +37,12 @@ public struct GPXDocument {
 }
 ```
 
----
+# GPX Types
+
+- GPXTrack
+    - .Segment
+    - .Point
+- GPXWaypoint
 
 # Reading GPX Files
 
@@ -54,8 +56,6 @@ let documentFromFileUrl = try? GPXDocument(fileUrl)
 let documentFromString = try? GPXDocument(gpxString)
 ```
 
----
-
 # Writing GPX Files
 
 ```swift
@@ -64,3 +64,7 @@ let gpxDoc = GPXDocument(...)
 let asData = gpxDoc.gpxData()
 let asString = gpxDoc.gpxString()
 ```
+
+## Dependencies
+
+- [AEXML](https://github.com/tadija/AEXML) for reading and writing XML files
