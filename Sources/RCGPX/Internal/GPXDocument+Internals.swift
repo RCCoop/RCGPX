@@ -21,6 +21,8 @@ extension GPXDocument: GPXElement {
         waypoints = try waypointElements.map { try GPXWaypoint(xml: $0) }
         let trackElements = xml.children.filter { $0.name == GPXTrack.xmlTag }
         tracks = try trackElements.map { try GPXTrack(xml: $0) }
+        let routeElements = xml.children.filter { $0.name == GPXRoute.xmlTag }
+        routes = try routeElements.map { try GPXRoute(xml: $0) }
     }
 
     var xmlElement: AEXMLElement {
@@ -28,6 +30,7 @@ extension GPXDocument: GPXElement {
         element.attributes["creator"] = creator
         element.addChildren(waypoints.map(\.xmlElement))
         element.addChildren(tracks.map(\.xmlElement))
+        element.addChildren(routes.map(\.xmlElement))
         return element
     }
 }

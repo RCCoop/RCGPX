@@ -17,15 +17,19 @@ public struct GPXDocument {
     public var waypoints: [GPXWaypoint]
     /// An array of `GPXTrack` contained in this GPX file
     public var tracks: [GPXTrack]
+    /// An array of `GPXRoute` contained in this GPX file
+    public var routes: [GPXRoute]
 
     public init(
         creator: String? = nil,
         waypoints: [GPXWaypoint] = [],
-        tracks: [GPXTrack] = []
+        tracks: [GPXTrack] = [],
+        routes: [GPXRoute] = []
     ) {
         self.creator = creator
         self.waypoints = waypoints
         self.tracks = tracks
+        self.routes = routes
     }
 }
 
@@ -34,7 +38,7 @@ public struct GPXDocument {
 public extension GPXDocument {
     /// Returns an array of all `GPXFeatures` in the document in no particular order.
     var features: [GPXFeature] {
-        waypoints + tracks
+        waypoints + tracks + routes
     }
     
     /// Returns the full string representation of the GPX file.
