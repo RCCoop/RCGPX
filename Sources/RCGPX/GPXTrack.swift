@@ -6,15 +6,14 @@
 //
 
 import AEXML
+import CoreLocation
 import Foundation
 
 // MARK: - Track
 
 /// A representation of one or more lines on the map.
-public struct GPXTrack {
-    /// The unique name of the track to be displayed in a list of GPX elements.
+public struct GPXTrack: GPXFeature {
     public var name: String
-    /// An optional, user-provided description of the track
     public var gpxDescription: String?
     /// An ordered array of `GPXTrack.Segment` that make up the overall track.
     public var segments: [Segment]
@@ -34,7 +33,7 @@ public struct GPXTrack {
     public func allTrackPoints() -> [Point] {
         segments
             .map(\.trackPoints)
-            .reduce([]) { $0 + $1 }
+            .reduce([], +)
     }
 }
 
@@ -83,5 +82,30 @@ public extension GPXTrack {
             self.elevation = elevation
             self.time = time
         }
+    }
+}
+
+// MARK: - CoreLocation Helpers
+
+public extension GPXTrack.Point {
+    var coordinate: CLLocationCoordinate2D {
+        get {
+            CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        }
+        set {
+            latitude = newValue.latitude
+            longitude = newValue.longitude
+        }
+    }
+    
+    init(
+        coordinate: CLLocationCoordinate2D,
+        elevation: Double? = nil,
+        time: Date? = nil
+    ) {
+        self.latitude = coordinate.latitude
+        self.longitude = coordinate.longitude
+        self.elevation = elevation
+        self.time = time
     }
 }

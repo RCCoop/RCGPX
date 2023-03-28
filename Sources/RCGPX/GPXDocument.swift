@@ -32,6 +32,11 @@ public struct GPXDocument {
 // MARK: - Accessors
 
 public extension GPXDocument {
+    /// Returns an array of all `GPXFeatures` in the document in no particular order.
+    var features: [GPXFeature] {
+        waypoints + tracks
+    }
+    
     /// Returns the full string representation of the GPX file.
     func gpxString() -> String {
         let xmlDoc = AEXMLDocument()
