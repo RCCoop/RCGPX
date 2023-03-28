@@ -34,6 +34,7 @@ public struct GPXDocument {
     public var creator: String?
     public var waypoints: [GPXWaypoint]
     public var tracks: [GPXTrack]
+    public var routes: [GPXRoute]
 }
 ```
 
@@ -41,6 +42,8 @@ public struct GPXDocument {
 
 - GPXTrack
     - .Segment
+    - .Point
+- GPXRoute
     - .Point
 - GPXWaypoint
 
